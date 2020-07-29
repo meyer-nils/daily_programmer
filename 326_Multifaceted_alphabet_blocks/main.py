@@ -70,10 +70,10 @@ def find_new_block(word_list, blocks=[]):
             return best[0:lim]
 
 
-def main(filename):
+def run(filename):
     print("Input file is %s" % filename)
     with open(filename, "r") as file:
-        word_list = file.read().split("\r\n")
+        word_list = file.read().split("\n")
 
     max_word = ""
     for word in word_list:
@@ -93,8 +93,8 @@ def main(filename):
     print("Found %d blocks in %f seconds." % (len(blocks), end - start))
     with open("solution.txt", "w") as file:
         for block in blocks:
-            file.write("".join(block) + "\r\n")
+            file.write("".join(block) + "\n")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    run(sys.argv[1])
