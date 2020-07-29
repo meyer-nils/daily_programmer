@@ -1,16 +1,5 @@
 import time
-
-
-def get_word_list(type="example"):
-    if type == "real":
-        with open("real_words.txt", "r") as file:
-            word_list = file.read().split("\r\n")
-    elif type == "dict":
-        with open("dictionary.txt", "r") as file:
-            word_list = file.read().split("\r\n")
-    else:
-        word_list = ["zero", "one", "two", "three", "four", "five", "six", "seven"]
-    return word_list
+import sys
 
 
 def get_histogram(word_list, blocks):
@@ -81,8 +70,11 @@ def find_new_block(word_list, blocks=[]):
             return best[0:lim]
 
 
-if __name__ == "__main__":
-    word_list = get_word_list(type="example")
+def main(filename):
+    print("Input file is %s" % filename)
+    with open(filename, "r") as file:
+        word_list = file.read().split("\r\n")
+
     max_word = ""
     for word in word_list:
         if len(word) > len(max_word):
@@ -99,6 +91,10 @@ if __name__ == "__main__":
         new_block = find_new_block(word_list, blocks)
     end = time.time()
     print("Found %d blocks in %f seconds." % (len(blocks), end - start))
-    file = open("solution.txt", "w")
-    for block in blocks:
-        file.write("".join(block) + "\r\n")
+    with open("solution.txt", "w") as file:
+        for block in blocks:
+            file.write("".join(block) + "\r\n")
+
+
+if __name__ == "__main__":
+    main(sys.argv[1])
