@@ -11,10 +11,10 @@ def gen_random_tuple():
     return (bits, X)
 
 
-@pytest.mark.parametrize("S, X", [gen_random_tuple() for i in range(50)])
+@pytest.mark.parametrize("S, X", [gen_random_tuple() for i in range(2)])
 def test_solution(S, X):
     """Test the correct solution."""
-    from main import prisoner1, prisoner2, flip
+    from main_385 import prisoner1, prisoner2, flip
 
     Y = prisoner1(S, X)
     T = flip(S, Y)

@@ -7,7 +7,7 @@ import os
 @pytest.mark.parametrize("input", ["simple.txt", "real_words.txt", "dictionary.txt"])
 def test_solution(input):
     """Test  solution."""
-    from main import run
+    from main_326 import run
 
     dir = os.path.dirname(__file__)
 
