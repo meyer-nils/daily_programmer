@@ -1,22 +1,48 @@
 import time
 
+
 def get_word_list(type="example"):
     if type == "real":
-        with open("real_words.txt", 'r') as file:
-            word_list = file.read().split('\r\n')
+        with open("real_words.txt", "r") as file:
+            word_list = file.read().split("\r\n")
     elif type == "dict":
-        with open("dictionary.txt", 'r') as file:
-            word_list = file.read().split('\r\n')
+        with open("dictionary.txt", "r") as file:
+            word_list = file.read().split("\r\n")
     else:
-        word_list = ["zero","one","two","three","four","five","six","seven"]
+        word_list = ["zero", "one", "two", "three", "four", "five", "six", "seven"]
     return word_list
 
 
 def get_histogram(word_list, blocks):
     # dictionary containing letters and their count
-    histogram = {'a':0,'b':0,'c':0,'d':0,'e':0,'f':0,'g':0,'h':0,'i':0,
-                'j':0,'k':0,'l':0,'m':0,'n':0,'o':0,'p':0,'q':0,'r':0,
-                's':0,'t':0,'u':0,'v':0,'w':0,'x':0,'y':0,'z':0}
+    histogram = {
+        "a": 0,
+        "b": 0,
+        "c": 0,
+        "d": 0,
+        "e": 0,
+        "f": 0,
+        "g": 0,
+        "h": 0,
+        "i": 0,
+        "j": 0,
+        "k": 0,
+        "l": 0,
+        "m": 0,
+        "n": 0,
+        "o": 0,
+        "p": 0,
+        "q": 0,
+        "r": 0,
+        "s": 0,
+        "t": 0,
+        "u": 0,
+        "v": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0,
+        "z": 0,
+    }
     for word in word_list:
         b = blocks[:]
         found = False
@@ -32,14 +58,16 @@ def get_histogram(word_list, blocks):
                 histogram[letter] += 1
     return histogram
 
+
 def best_letters(word_list, excludes=[]):
     hist = get_histogram(word_list, excludes)
     sorted_hist = sorted(hist, key=hist.get, reverse=True)
-    print("Remaining: %d"%hist[sorted_hist[0]])
+    print("Remaining: %d" % hist[sorted_hist[0]])
     if hist[sorted_hist[0]] == 0:
         return None
     else:
         return sorted_hist
+
 
 def find_new_block(word_list, blocks=[]):
     if blocks == []:
@@ -49,7 +77,9 @@ def find_new_block(word_list, blocks=[]):
         N = len(blocks)
         best = best_letters(word_list, blocks)
         if best:
-            return best[0:N+1]
+            lim = N + 1
+            return best[0:lim]
+
 
 if __name__ == "__main__":
     word_list = get_word_list(type="example")
@@ -57,8 +87,9 @@ if __name__ == "__main__":
     for word in word_list:
         if len(word) > len(max_word):
             max_word = word
-    print("Read input data. Longest word is %s (%d letters)"%(
-                                                    max_word,len(max_word)))
+    print(
+        "Read input data. Longest word is %s (%d letters)" % (max_word, len(max_word))
+    )
 
     blocks = []
     start = time.time()
@@ -66,8 +97,8 @@ if __name__ == "__main__":
     while new_block:
         blocks.append(new_block)
         new_block = find_new_block(word_list, blocks)
-    end = time.time ()
-    print("Found %d blocks in %f seconds."%(len(blocks),end-start))
+    end = time.time()
+    print("Found %d blocks in %f seconds." % (len(blocks), end - start))
     file = open("solution.txt", "w")
     for block in blocks:
-        file.write(''.join(block)+"\r\n")
+        file.write("".join(block) + "\r\n")
