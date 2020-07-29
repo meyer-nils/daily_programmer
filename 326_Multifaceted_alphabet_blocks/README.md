@@ -36,3 +36,5 @@ For example, four can be formed by using blocks 3, 2, 5, and 4 in order.
 Note that ten could not be formed from these blocks even though all the letters are
 there, because the only t and the only n both appear on block 5, and you can only use
 at most one face from each block.
+
+Source: https://www.reddit.com/r/dailyprogrammer/comments/6t0zua/20170811_challenge_326_hard_multifaceted_alphabet/
