@@ -1,5 +1,6 @@
 import time
 import sys
+import os
 
 
 def get_histogram(word_list, blocks):
@@ -91,7 +92,9 @@ def run(filename):
         new_block = find_new_block(word_list, blocks)
     end = time.time()
     print("Found %d blocks in %f seconds." % (len(blocks), end - start))
-    with open("solution.txt", "w") as file:
+    dir = os.path.dirname(filename)
+    output = os.path.join(dir, "solution.txt")
+    with open(output, "w") as file:
         for block in blocks:
             file.write("".join(block) + "\n")
 
